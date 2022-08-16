@@ -1,0 +1,112 @@
+;VARIOUS PREPROCESSING OPTIONS
+title                    = water bio7 npt
+
+; RUN CONTROL PARAMETERS
+integrator               = md
+; Start time and timestep in ps
+tinit                    = 0
+dt                       = 0.002
+nsteps                   = 40000000      
+; For exact run continuation or redoing part of a run
+init_step                = 0
+; mode for center of mass motion removal
+comm-mode                = Linear
+; number of steps for center of mass motion removal
+nstcomm                  = 1
+; group(s) for center of mass motion removal
+comm-grps                =
+
+freezegrps = N P
+freezedim = y y y  y y y 
+
+
+; OUTPUT CONTROL OPTIONS
+; Output frequency for coords (x), velocities (v) and forces (f)
+nstxout                  = 100000000
+nstvout                  = 100000000
+nstfout                  = 100000000
+; Checkpointing helps you continue after crashes
+nstcheckpoint            = 0
+; Output frequency for energies to log file and energy file
+nstlog                   = 5000   
+nstenergy                = 5000  
+; Output frequency and precision for xtc file
+nstxtcout                = 50000
+xtc-precision            = 1000
+; This selects the subset of atoms for the xtc file. You can
+; select multiple groups. By default all atoms will be written.
+xtc-grps                 = 
+; Selection of energy groups
+energygrps               = Na Cl N P OW
+energygrp_table          = Na Na  Cl Cl  N N  P P  OW OW  Na Cl  Na N  Na OW  Na P  Cl N  Cl OW  Cl P  N P  N OW  P OW 
+; NEIGHBORSEARCHING PARAMETERS
+; nblist update frequency
+nstlist                  = 1
+; ns algorithm (simple or grid)
+ns_type                  = grid
+; Periodic boundary conditions: xyz (default), no (vacuum)
+; or full (infinite systems only)
+pbc                      = xyz
+; nblist cut-off        
+rlist                    = 1.2
+
+; OPTIONS FOR ELECTROSTATICS AND VDW
+; Method for doing electrostatics
+coulombtype              = pme
+rcoulomb                 = 1.2
+pme_order                = 4
+fourierspacing           = 0.1 
+
+; Method for doing Van der Waals
+;vdw-type                 = switch  
+vdw-type                 = user 
+; cut-off lengths      
+;rvdw-switch              = 1.20
+rvdw                     = 1.2
+; Apply long range dispersion corrections for Energy and Pressure
+;DispCorr                 = EnerPres 
+DispCorr                 = no
+; Extension of the potential lookup tables beyond the cut-off
+table-extension          = 1
+cutoff-scheme = Group
+; OPTIONS FOR WEAK COUPLING ALGORITHMS
+; Temperature coupling  
+;Tcoupl                   = no
+Tcoupl                   = v-rescale
+tau_t                    = 1.0
+ref_t                    = 298.15 
+tc-grps                  = system
+
+Pcoupl                   = parrinello-rahman
+;Pcoupl                   =  no 
+tau_p                    = 2.001
+pcoupltype               = anisotropic
+ref_p                    = 1. 1. 1.  0 0 0  
+compressibility          = 0 5e-6 0   0 0 0
+
+annealing                = no
+
+; GENERATE VELOCITIES FOR STARTUP RUN
+ gen_vel                  = yes
+ gen_temp                 = 298.15 
+ gen_seed                 = 653423474
+
+; OPTIONS FOR BONDS    
+constraints              = all-angles
+; Type of constraint algorithm
+constraint-algorithm     = Lincs 
+; Highest order in the expansion of the constraint coupling matrix
+lincs-order              = 6
+; Number of iterations in the final step of LINCS. 1 is fine for
+; normal simulations, but use 2 to conserve energy in NVE runs.
+; For energy minimization with constraints it should be 4 to 8.
+lincs-iter               = 4
+; Lincs will write a warning to the stderr if in one step a bond
+; rotates over more degrees than
+lincs-warnangle          = 30
+; Convert harmonic bonds to morse potentials
+morse                    = no
+; Do not constrain the start configuration
+;continuation             = no
+
+

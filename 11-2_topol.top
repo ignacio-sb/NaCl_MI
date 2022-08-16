@@ -1,0 +1,93 @@
+[ defaults ]
+; nbfunc	comb-rule	gen-pairs	fudgeLJ	fudgeQQ
+  1		1		no		1.0	1.0
+
+[atomtypes]
+;name     mass      charge   ptype   	  c6		    c12         
+Na     22.99         1.000       A   1.0000          1.0000
+Cl     35.453       -1.000       A   1.0000          1.0000
+OW     15.99940     -0.8476      A   1.0000          1.0000
+HW     1.00800       0.4238      A   0.0000          0.0000   
+N      22.99         1.000       A   1.0000          1.0000
+P      22.99         1.000       A   1.0000          1.0000
+
+[nonbond_params]
+;i        j         func     c6			    c12
+ Na       Cl          1     1.0000       1.0000   
+ Na       OW          1     1.0000       1.0000 
+ Cl       OW          1     1.0000       1.0000 
+ N        P           1     1.0000       1.0000 
+ Cl       P           1     1.0000       1.0000 
+ Na       P           1     1.0000       1.0000 
+ Cl       N           1     1.0000       1.0000 
+ Na       N           1     1.0000       1.0000 
+ OW       P           1     1.0000       1.0000 
+ OW       N           1     1.0000       1.0000 
+
+[moleculetype]
+; name nrexcl
+water  1
+
+[atoms]
+; nr type resnr residu atom cgnr charge
+     1     OW      1    SOL    OW       1    -0.8476
+     2     HW      1    SOL    HW1      2     0.4238
+     3     HW      1    SOL    HW2      2     0.4238
+
+[constraints]
+;i j funct doh  dhh
+1  2  1    0.1
+1  3  1    0.1
+2  3  1    0.1633
+
+[exclusions]
+1       2       3
+2       1       3
+3       1       2
+
+[moleculetype]
+; name nrexcl
+Na  1
+
+[atoms]
+; nr type resnr residu atom cgnr charge
+     1     Na      1    Na    Na       1     1.0000     22.99
+
+[moleculetype]
+; name nrexcl
+Cl  1
+
+[atoms]
+; nr type resnr residu atom cgnr charge
+     1     Cl      1    Cl    Cl       1    -1.0000     35.453
+
+[moleculetype]
+; name nrexcl
+N  1
+
+[atoms]
+; nr type resnr residu atom cgnr charge
+     1     N      1    N    N       1     0.0000     22.99
+
+[moleculetype]
+; name nrexcl
+P  1
+
+[atoms]
+; nr type resnr residu atom cgnr charge
+     1     P      1    P    P       1     0.0000     22.99
+
+
+[system]
+water_sal
+
+[molecules]
+water 11118
+Na 809
+Cl 809
+Na 69
+Cl 68
+N 42
+P 42
+Na 24
+Cl 25
